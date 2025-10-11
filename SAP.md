@@ -1,6 +1,6 @@
 Argosbx在SAP平台部署代理节点，基于[eooce](https://github.com/eooce/Auto-deploy-sap-and-keepalive)相关功能现实，可用vless-ws-tls(cdn)、vmess-ws-argo-cdn、vmess-ws-tls-argo-cdn
 
-Vless-ws-tls为默认安装，Argo固定或临时隧道为可选，也可使用workers/pages反代方式启用Vless-ws-tls的CDN替代Argo的CDN
+Vless-ws-tls为默认安装，Argo固定或临时隧道为可选，也可使用[workers/pages反代方式](https://github.com/yonggekkk/argosbx/blob/main/_worker.js)启用Vless-ws-tls的CDN替代Argo的CDN
 
 SAP个人注册地址：https://www.sap.com/products/technology-platform/trial.html
 
@@ -20,7 +20,7 @@ VPS服务器方式脚本地址：（再次进入快捷方式```bash sap.sh```）
 
 ----------------------------------------- 
 
-* 变量设置说明：每个变量的多个账号需按顺序依次对应填写，多个之间空一格，多个中如有个别留空则填no代替
+* 变量设置说明：每个变量的多个账号需按顺序依次对应填写，多个之间空一格，多个中如有个别留空则填```no```代替
   
 | 变量名称 | 变量值 | 是否必填 | 变量作用 |
 | :----- | :-------- | :-------- | :--- |
@@ -28,28 +28,26 @@ VPS服务器方式脚本地址：（再次进入快捷方式```bash sap.sh```）
 | CF_PASSWORDS | 单个或多个SAP密码  | 必填  | 登录密码 |
 | REGIONS | 单个或多个地区变量代码 | 必填 | 登录实例地区 |
 | UUIDS | 单个或多个UUID | 必填 | 代理协议UUID |
-| APP_NAMES | 单个或多个应用程序名称 | 可选，留空则为地区码+邮箱 | 应用程序名称 |
-| VMPTS | 单个或多个argo固定/临时隧道端口| 可选，留空则关闭argo隧道  | 启用argo固定/临时隧道时必填 |
-| AGNS  | 单个或多个argo固定隧道域名 | 可选，留空则启用临时隧道  | 使用argo固定域名时必填 |
-| AGKS | 单个或多个argo固定隧道token | 可选，留空则启用临时隧道  | 使用argo固定域名时必填 |
+| APP_NAMES | 单个或多个应用程序名称 | 可选，留空填```no```，则为地区码+邮箱 | 应用程序名称 |
+| VMPTS | 单个或多个argo固定/临时隧道端口| 可选，留空填```no```，则关闭argo隧道  | 启用argo固定/临时隧道时必填 |
+| AGNS  | 单个或多个argo固定隧道域名 | 可选，留空填```no```，则启用临时隧道  | 使用argo固定域名时必填 |
+| AGKS | 单个或多个argo固定隧道token | 可选，留空填```no```，则启用临时隧道  | 使用argo固定域名时必填 |
 | DELAPP | 单个或多个应用程序名 | 优先独立执行 | 删除指定应用程序才需要，github或docker执行后务必还原留空状态 |
 
 
 ---------------------------------------
 
- REGIONS：地区变量代码表
+ 试用90天账户专区：
 
- 个人区专用：
-
-| IP服务商 | 地区      | 国家城市  | 地区变量代码(大写) |
+| IP服务商 | 地区      | 国家城市  | REGIONS地区变量代码(大写) |
 | :----- | :-------- | :-------- | :--- |
 | Azure微软   | 亚洲      | 新加坡    | SG   |
 | AWS亚马逊 | 北美      | 美国      | US   |
 
 
- 企业区专用：
+ 企业账户专区：
 
-| IP服务商 | 地区      | 国家城市    | 地区变量代码(大写)    |
+| IP服务商 | 地区      | 国家城市    | REGIONS地区变量代码(大写)    |
 | :----- | :-------- | :---------- | :------ |
 | AWS亚马逊 | 亚洲      | 澳大利亚-悉尼 | AU-A    |
 | AWS亚马逊 | 亚洲      | 日本-东京    | JP-A    |

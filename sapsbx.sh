@@ -58,7 +58,7 @@ REGIONS=""
 # 必填！每个账号对应UUID空一格
 UUIDS=""
 
-# 选填！每个账号对应名称空一格，不填则每个实例都自动生成，多个账号中有个别账号自动生成填no
+# 选填！每个账号对应的应用程序名称APP空一格，不填则每个实例都自动生成，多个账号中有个别账号自动生成填no
 APP_NAMES=""
 
 # 选填！当使用Argo固定/临时隧道时，此端口变量必填，每个账号对应端口空一格，不填则每个实例都不启用argo，多个账号中有个别账号不启用填no
@@ -71,7 +71,7 @@ AGNS=""
 AGKS=""
 
 # 8-9点保活时间间隔，单位：分钟
-crontime=3
+crontime=5
 
 # 设置区=====================================================================
 
@@ -103,7 +103,7 @@ crontab /tmp/crontab.tmp
 rm /tmp/crontab.tmp
 pushout() {
   if echo "$push_out" | grep -iq "insufficient"; then
-    echo "🔴第 $((i+1)) 个实例部署：${APP_NAME} 失败了，SAP资源被人抢光了，明早8:15-9:00再来吧，再见！！"
+    echo "🔴第 $((i+1)) 个实例部署：${APP_NAME} 失败了，SAP资源被人抢光了，明早8:10-9:00再来吧，再见！！"
     return 1
   elif echo "$push_out" | grep -q "FAILED"; then
     echo "🔴第 $((i+1)) 个实例部署：${APP_NAME} 失败了，SAP繁忙中！请自查参数设置是否有误，后台实例是否超配额"

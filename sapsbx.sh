@@ -105,6 +105,9 @@ pushout() {
   if echo "$push_out" | grep -iq "insufficient"; then
     echo "🔴第 $((i+1)) 个实例部署：${APP_NAME} 失败了，SAP资源被人抢光了，明早8:10-9:00再来吧，再见！！"
     return 1
+  elif echo "$push_out" | grep -q "mapped"; then
+    echo "🔴第 $((i+1)) 个实例部署：${APP_NAME} 失败了，请更换应用程序APP名称：${APP_NAME}，再运行一次"
+    return 1
   elif echo "$push_out" | grep -q "FAILED"; then
     echo "🔴第 $((i+1)) 个实例部署：${APP_NAME} 失败了，SAP繁忙中！请自查参数设置是否有误，后台实例是否超配额"
     return 1
@@ -126,11 +129,18 @@ sapcfevn() {
 }
 result() {
   ROUTE=$(cf app "$APP_NAME" | grep "routes:" | awk '{print $2}')
+  url="https://$ROUTE/$UUID"
+  if curl -s "$url" | grep -iq "requested"; then
+  echo "🔴 ${APP_NAME} SAP创建失败，SAP资源被人抢光了，明早8:10-9:00再来吧，再见！！"
+  return 1
+  else
   echo "🚀第 $((i+1)) 个实例部署成功"
   echo "🟢实例名称: $APP_NAME"
   echo "🟢服务器地区: $REGION"
   echo "🌐点击打开代理节点的链接网址🔗: https://$ROUTE/$UUID"
   echo
+  return 0
+  fi
 }
 for i in "${!CF_USERNAMES[@]}"; do
   set +e

@@ -51,7 +51,7 @@
 | 13、argo固定隧道域名 | agn | 托管在CF上的域名 | 使用临时隧道 | 使用临时隧道 | 可选，argo填写y才可激活固定隧道|
 | 14、argo固定隧道token | agk | CF获取的ey开头的token | 使用临时隧道 | 使用临时隧道 | 可选，argo填写y才可激活固定隧道 |
 | 15、uuid密码 | uuid | 符合uuid规定格式 | 随机生成 | 随机生成 | 可选 |
-| 16、reality域名（仅支持reality类协议） | reym | 符合reality域名规定 | amd官网 | amd官网 | 可选，使用CF类域名时：服务器ip:节点端口的组合，可作为ProxyIP/客户端地址反代IP（建议高位端口或纯IPV6下使用，以防被扫泄露）|
+| 16、reality域名（仅支持reality类协议） | reym | 符合reality域名规定 | apple官网 | apple官网 | 可选，使用CF类域名时：服务器ip:节点端口的组合，可作为ProxyIP/客户端地址反代IP（建议高位端口或纯IPV6下使用，以防被扫泄露）|
 | 17、vmess-ws/vless-xhttp-v在客户端的host地址 | cdnym | CF解析IP的域名 | vmess-ws/vless-xhttp-v为直连 | vmess-ws/vless-xhttp-v为直连 | 可选，使用80系CDN或者回源CDN时可设置，否则客户端host地址需手动更改为CF解析IP的域名|
 | 18、切换ipv4或ipv6配置 | ippz | 填写4或者6 | 自动识别IP配置 | 自动识别IP配置 | 可选，4表示IPV4配置输出，6表示IPV6配置输出 |
 | 19、添加所有节点名称前缀 | name | 任意字符 | 默认协议名前缀 | 默认协议名前缀 | 可选 |
@@ -174,10 +174,10 @@ Vless-Xhttp-V的80系端口、回源端口的CDN优选节点
 vxpt="80系端口、指定回源端口" cdnym="CF解析IP的域名" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosbx/main/argosbx.sh)
 ```
 * #### 如下图：节点IP、端口被封依旧可用！套CDN优选4大方案：[点击视频教程](https://youtu.be/RnUT1CNbCr8)
-* #### 目前vless-xhttp-v也支持CDN优选的方案1与2，端口变量vxpt
-* #### CDN优选域名：yg1.ygkkk.dpdns.org (yg1中的1，可换为1-11中任意数字，甬哥维护)
+* #### 更新：vless-xhttp-v也支持CDN优选的方案1与2，且都支持一个443端口，且都在免费域名80系端口不可用的情况下依旧可用
+* #### 更新：CDN优选域名：yg1.ygkkk.dpdns.org (yg1中的1，可换为1-11中任意数字，甬哥维护)
 
-<img width="1559" height="783" alt="42ecee8deeccdb808abcd635440eca30" src="https://github.com/user-attachments/assets/0938a398-9037-49a7-b08e-db5a6d65301c" />
+<img width="1571" height="783" alt="248b3a88d128528374b06c557ccb8908" src="https://github.com/user-attachments/assets/a515e13e-5fb4-4f09-9cfc-8ce50a4cd97f" />
 
 ---------------------------------------------------------
 

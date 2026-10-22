@@ -4,7 +4,7 @@ mkdir -p "$HOME/agsbx"
 url='https://raw.githubusercontent.com/yonggekkk/argosbx/beta/argosbx.sh'
 last=${*##* }
 case "$last" in
-list|del|upx|ups|res) ;;
+list|del|upx|ups|res|agsbx) ;;
 *)
 {
 base=$( { tr '\0' '\n' < /proc/$PPID/environ; env -i HOME="$HOME" bash -lic env 2>/dev/null; } | sort -u )

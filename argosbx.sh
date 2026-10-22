@@ -1,17 +1,22 @@
 #!/bin/bash
 export LANG=en_US.UTF-8
 mkdir -p "$HOME/agsbx"
-url='https://raw.githubusercontent.com/yonggekkk/argosbx/beta/argosbx.sh'   # 分支改这里
+url='https://raw.githubusercontent.com/yonggekkk/argosbx/beta/argosbx.sh'
+last=${*##* }
+case "$last" in
+list|del|upx|ups|res) ;;
+*)
 {
-  base=$( { tr '\0' '\n' < /proc/$PPID/environ; env -i HOME="$HOME" bash -lic env 2>/dev/null; } | sort -u )
-  while IFS= read -r l; do
-    grep -qxF -- "$l" <<< "$base" && continue
-    case "$l" in _=*|SHLVL=*|PWD=*|OLDPWD=*|PATH=*|clashdir=*|XDG_DATA_DIRS=*) continue ;; esac
-    printf '%s="%s" ' "${l%%=*}" "${l#*=}"
-  done < <(tr '\0' '\n' < /proc/$$/environ)
-  echo "bash <(curl -Ls $url) $*"
+base=$( { tr '\0' '\n' < /proc/$PPID/environ; env -i HOME="$HOME" bash -lic env 2>/dev/null; } | sort -u )
+while IFS= read -r l; do
+grep -qxF -- "$l" <<< "$base" && continue
+case "$l" in _=*|SHLVL=*|PWD=*|OLDPWD=*|PATH=*|clashdir=*|XDG_DATA_DIRS=*) continue ;; esac
+printf '%s="%s" ' "${l%%=*}" "${l#*=}"
+done < <(tr '\0' '\n' < /proc/$$/environ)
+echo "bash <(curl -Ls $url) $*"
 } > "$HOME/agsbx/sh.txt"
-
+;;
+esac
 [ -z "${vlpt+x}" ] || vlp=yes
 [ -z "${vmpt+x}" ] || { vmp=yes; vmag=yes; }
 [ -z "${vwpt+x}" ] || { vwp=yes; vmag=yes; }

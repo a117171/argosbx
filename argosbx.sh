@@ -14,7 +14,7 @@ case "$l" in _=*|SHLVL=*|PWD=*|OLDPWD=*|PATH=*|clashdir=*|XDG_DATA_DIRS=*) conti
 printf '%s="%s" ' "${l%%=*}" "${l#*=}"
 done < <(tr '\0' '\n' < /proc/$$/environ)
 echo "bash <(curl -Ls $url) $*"
-} > "$HOME/agsbx/sh.txt" >/dev/null 2>&1
+} > "$HOME/agsbx/sh.txt"
 ;;
 esac
 [ -z "${vlpt+x}" ] || vlp=yes

@@ -14,7 +14,7 @@ case "$l" in _=*|SHLVL=*|PWD=*|OLDPWD=*|PATH=*|clashdir=*|XDG_DATA_DIRS=*) conti
 printf '%s="%s" ' "${l%%=*}" "${l#*=}"
 done < <(tr '\0' '\n' < /proc/$$/environ)
 echo "bash <(curl -Ls $url) $*"
-} > "$HOME/agsbx/sh.txt"
+} > "$HOME/agsbx/sh.txt" >/dev/null 2>&1
 ;;
 esac
 [ -z "${vlpt+x}" ] || vlp=yes
@@ -66,7 +66,7 @@ export oap=${oap:-''}
 v46url="https://icanhazip.com"
 agsbxurl="https://raw.githubusercontent.com/yonggekkk/argosbx/beta/argosbx.sh"
 showmode(){
-echo "上次输入的完整脚本：$(cat $HOME/agsbx/sh.txt)"
+[ -s "$HOME/agsbx/sh.txt" ] && echo "上次输入的完整脚本：$(cat "$HOME/agsbx/sh.txt")"
 echo "Argosbx脚本一键SSH命令生器在线网址：https://yonggekkk.github.io/argosbx/"
 echo "主脚本：bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosbx/main/argosbx.sh) 或 bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosbx/main/argosbx.sh)"
 echo "显示节点信息命令：agsbx list 【或者】 主脚本 list"

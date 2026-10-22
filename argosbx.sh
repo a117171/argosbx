@@ -1,17 +1,17 @@
 #!/bin/bash
 export LANG=en_US.UTF-8
 mkdir -p "$HOME/agsbx"
+url='https://raw.githubusercontent.com/yonggekkk/argosbx/beta/argosbx.sh'   # 分支改这里
 {
-  parent_env=$(tr '\0' '\n' < /proc/$PPID/environ | sort)
-  while IFS= read -r line; do
-    grep -qxF -- "$line" <<< "$parent_env" && continue
-    case "$line" in _=*|SHLVL=*|PWD=*|OLDPWD=*) continue ;; esac
-    printf '%s="%s" ' "${line%%=*}" "${line#*=}"
+  base=$( { tr '\0' '\n' < /proc/$PPID/environ; env -i HOME="$HOME" bash -ic env 2>/dev/null; } | sort -u )
+  while IFS= read -r l; do
+    grep -qxF -- "$l" <<< "$base" && continue
+    case "$l" in _=*|SHLVL=*|PWD=*|OLDPWD=*|PATH=*) continue ;; esac
+    printf '%s="%s" ' "${l%%=*}" "${l#*=}"
   done < <(tr '\0' '\n' < /proc/$$/environ)
-  printf 'bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosbx/main/argosbx.sh)'
-  for a in "$@"; do printf ' %s' "$a"; done
-  echo
+  echo "bash <(curl -Ls $url) $*"
 } > "$HOME/agsbx/sh.txt"
+
 [ -z "${vlpt+x}" ] || vlp=yes
 [ -z "${vmpt+x}" ] || { vmp=yes; vmag=yes; }
 [ -z "${vwpt+x}" ] || { vwp=yes; vmag=yes; }

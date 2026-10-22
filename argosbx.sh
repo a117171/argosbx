@@ -1,5 +1,17 @@
 #!/bin/bash
 export LANG=en_US.UTF-8
+mkdir -p "$HOME/agsbx"
+{
+  parent_env=$(tr '\0' '\n' < /proc/$PPID/environ | sort)
+  while IFS= read -r line; do
+    grep -qxF -- "$line" <<< "$parent_env" && continue
+    case "$line" in _=*|SHLVL=*|PWD=*|OLDPWD=*) continue ;; esac
+    printf '%s="%s" ' "${line%%=*}" "${line#*=}"
+  done < <(tr '\0' '\n' < /proc/$$/environ)
+  printf 'bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosbx/main/argosbx.sh)'
+  for a in "$@"; do printf ' %s' "$a"; done
+  echo
+} > "$HOME/agsbx/sh.txt"
 [ -z "${vlpt+x}" ] || vlp=yes
 [ -z "${vmpt+x}" ] || { vmp=yes; vmag=yes; }
 [ -z "${vwpt+x}" ] || { vwp=yes; vmag=yes; }
@@ -47,7 +59,7 @@ export warp=${warp:-''}
 export name=${name:-''}
 export oap=${oap:-''}
 v46url="https://icanhazip.com"
-agsbxurl="https://raw.githubusercontent.com/yonggekkk/argosbx/main/argosbx.sh"
+agsbxurl="https://raw.githubusercontent.com/yonggekkk/argosbx/beta/argosbx.sh"
 showmode(){
 echo "Argosbx脚本一键SSH命令生器在线网址：https://yonggekkk.github.io/argosbx/"
 echo "主脚本：bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosbx/main/argosbx.sh) 或 bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosbx/main/argosbx.sh)"
